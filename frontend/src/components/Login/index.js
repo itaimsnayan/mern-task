@@ -18,6 +18,7 @@ function Login() {
       setMessage(data.message);
       localStorage.setItem("userId", data.data._id);
       localStorage.setItem("token", data.data.token);
+      localStorage.setItem("email", data.data.email);
       navigate("/dashboard");
     }
   };

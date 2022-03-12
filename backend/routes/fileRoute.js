@@ -10,15 +10,16 @@ const router = express.Router();
 router.get("/list", auth, async (req, res) => {
   const files = await File.find().populate("userId");
   if (files)
-    sendResponse(res, 200, true, "User list fetched successfully", files);
-  else sendResponse(res, 400, false, "Error in fetching user list.");
+    sendResponse(res, 200, true, "File list fetched successfully", files);
+  else sendResponse(res, 400, false, "Error in fetching user file.");
 });
 
 router.post("/add", upload.single("myFile"), async (req, res, next) => {
   var url = req.protocol + "://" + req.get("host");
 
   const myfile = req.file;
-  const { userId, timestamp } = req.body;
+  const { userId, timestamp, filename, access } = req.body;
+
   if (!myfile) {
     return sendResponse(res, 400, false, "Please Upload a file.");
   } else {
@@ -29,7 +30,12 @@ router.post("/add", upload.single("myFile"), async (req, res, next) => {
       "_" +
       timestamp +
       getFileExtension(myfile.originalname);
-    const file = new File({ userId, path });
+
+      let useraccess = [];
+      if (typeof access === "string") useraccess.push(access);
+      else useraccess = access; 
+
+    const file = new File({ userId, path, filename, access: useraccess });
     const savedFile = await file.save();
     if (savedFile)
       return sendResponse(
