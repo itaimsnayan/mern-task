@@ -8,7 +8,7 @@ const multer = require("multer");
 const router = express.Router();
 
 router.get("/list", auth, async (req, res) => {
-  const files = await File.find();
+  const files = await File.find().populate("userId");
   if (files)
     sendResponse(res, 200, true, "User list fetched successfully", files);
   else sendResponse(res, 400, false, "Error in fetching user list.");
