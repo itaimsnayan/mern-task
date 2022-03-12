@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react"; 
 import { sendRequest } from "../../actions";
 import { apipaths } from "../../actions/apiPaths";
+import AddFile from "./addFile";
 
 function FileComponent() {
   const [files, setFiles] = useState([]); 
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getFileList();
+    getUserList();
   }, []);
 
   const getFileList = async () => {
@@ -15,17 +18,16 @@ function FileComponent() {
     error && alert(error.message);
   }; 
 
+  const getUserList = async () => {
+    const { error, data } = await sendRequest(apipaths.users);
+    data && setUsers(data.data);
+    error && alert(error.message);
+
+  }
   return (
     <div className="container">
       <div className="my-4">
-        <button
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Add File
-        </button> 
-        
+        <AddFile users={users}/>
       </div>
       <table className="table table-bordered">
         <thead>
