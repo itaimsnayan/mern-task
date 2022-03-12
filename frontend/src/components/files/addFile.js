@@ -31,7 +31,7 @@ function AddFile(props) {
     // formdata.append("access", access);
     formdata.append("userId", localStorage.userId);
     formdata.append("timestamp", new Date().getTime());
-    formdata.append("file", file);
+    formdata.append("myFile", file);
     console.log(file)
     const { error, data } = sendRequest(apipaths.addFile, formdata);
     console.log(error, data)
