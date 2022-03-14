@@ -1,0 +1,7 @@
+sku,store_code,status,type,price_parity
+JBLXX00503943,FS1,active,tester,1
+JBLXX00503940,N11,inactive,salable,1
+JBLXX00503941,N16,disqualified,tester,1
+JBLXX00503942,N17,active,tester_salable,1
+JBLXX00503948,N11,active,tester,1
+JBLXX00121705,N16,active,tester,1
